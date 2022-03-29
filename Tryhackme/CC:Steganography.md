@@ -1,12 +1,13 @@
-CC: Steganography
+#CC: Steganography
 
 ### About the CTF
 Steganographyの基本を学習するためのルーム.
 Steganography
 
 ## Writeup
+---
 ### Task2 Steghide
-steghideのオプション等を確認しながら答える。
+steghideのオプションを確認しながら答える。
 steghideのヘルプを参照してみる。
 ```
 steghide --help
@@ -80,16 +81,85 @@ Ans.: -sf
 ```
 steghide extract -sf jpeg1.jpeg
 ```
-passwordの入力を求められるので、password123を入力。
+passwordの入力を求められるので、`password123`を入力。
 出力されたファイル（a.txt）の内容を確認
 ```
 cat a.txt
 ```
 Ans.:pinguftw
-
+---
 ### Task3 zsteg
+zstegのオプションを確認
+```
+# zsteg -h
+
+
+Usage: zsteg [options] filename.png [param_string]
+
+    -c, --channels X                 channels (R/G/B/A) or any combination, comma separated
+                                     valid values: r,g,b,a,rg,bgr,rgba,r3g2b3,...
+    -l, --limit N                    limit bytes checked, 0 = no limit (default: 256)
+    -b, --bits N                     number of bits, single int value or '1,3,5' or range '1-8'
+                                     advanced: specify individual bits like '00001110' or '0x88'
+        --lsb                        least significant BIT comes first
+        --msb                        most significant BIT comes first
+    -P, --prime                      analyze/extract only prime bytes/pixels
+        --invert                     invert bits (XOR 0xff)
+    -a, --all                        try all known methods
+    -o, --order X                    pixel iteration order (default: 'auto')
+                                     valid values: ALL,xy,yx,XY,YX,xY,Xy,bY,...
+    -E, --extract NAME               extract specified payload, NAME is like '1b,rgb,lsb'
+
+        --[no-]file                  use 'file' command to detect data type (default: YES)
+        --no-strings                 disable ASCII strings finding (default: enabled)
+    -s, --strings X                  ASCII strings find mode: first, all, longest, none
+                                     (default: first)
+    -n, --min-str-len X              minimum string length (default: 8)
+        --shift N                    prepend N zero bits
+
+    -v, --verbose                    Run verbosely (can be used multiple times)
+    -q, --quiet                      Silent any warnings (can be used multiple times)
+    -C, --[no-]color                 Force (or disable) color output (default: auto)
+
+PARAMS SHORTCUT
+	zsteg fname.png 2b,b,lsb,xy  ==>  --bits 2 --channel b --lsb --order xy
+```
+
+#### 1.How do you specify that the least significant bit comes first
+Ans.: --lsb
+
+#### 2.What about the most significant bit?
+Ans.: --msb
+
+#### 3.How do you specify verbose mode?
+Ans.:-v
+
+#### 4.How do you extract the data from a specific payload?
+Ans.: -E
+
+#### 5.In the included file "png1" what is the hidden message?
+```
+# zsteg png1.png 
+
+imagedata           .. file: DOS 2.0 backup id file, sequence 48
+b1,bgr,lsb,xy       .. text: "nootnoot$"
+b2,r,lsb,xy         .. file: MacBinary, Mon Feb  6 06:28:16 2040 INVALID date, modified Mon Feb  6 06:28:16 2040 "PPPUP"
+b2,b,msb,xy         .. text: "]UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
+~~~~~~~~~~~~~~
+```
+output2行目にhidden messageが表示されている。
+Ans.: nootnoot$
+
+#### 6.What about the payload used to encrypt it.
+問題5の各行1列目に暗号化のpayloadが表示されている。
+Ans.: b1,bgr,lsb,xy
+
+---
 ### Task4 Exiftool
+---
 ### Task5 Stegoveritas
+---
 ### Task6 Spectrograms
+---
 ### Task7 The Final Exam
 
