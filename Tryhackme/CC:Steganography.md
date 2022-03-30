@@ -1,4 +1,4 @@
-# CC: Steganography
+# CC:Steganography
 
 ## About the CTF
 Steganographyの基本を学習するためのルーム.
@@ -249,10 +249,15 @@ kekekekek
 
 `kekekekek`
 
-
-
 ---
 ### Task6 Spectrograms
+- 1.What is the hidden text in the included wav2 file?
+Sonic Visualizerを起動し、`wav2.wav`を読み込む。
+Layer > Add Spectrogramを選択する。
+
+<img width="957" alt="Sonic_Visualiser" src="https://user-images.githubusercontent.com/67187325/160840097-05aa1916-ca59-473a-875d-f4f5bdf77f48.png">
+
+`Google`
 ---
 ### Task7 The Final Exam
 
