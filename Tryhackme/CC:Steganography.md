@@ -251,13 +251,90 @@ kekekekek
 
 ---
 ### Task6 Spectrograms
-- 1.What is the hidden text in the included wav2 file?
+- 1.What is the hidden text in the included wav2 file?  
 Sonic Visualizerを起動し、`wav2.wav`を読み込む。
 Layer > Add Spectrogramを選択する。
 
 <img width="957" alt="Sonic_Visualiser" src="https://user-images.githubusercontent.com/67187325/160840097-05aa1916-ca59-473a-875d-f4f5bdf77f48.png">
 
 `Google`
+
 ---
-### Task7 The Final Exam
+### Task7 The Final Exam 
+VMのPortを調べる。
+```
+nmap -sV <IP>
+
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+```
+ブラウザでアクセス。
+
+- 1.What is key 1?
+ファイルがどこかにあるらしい。gobusterでディレクトリを探してみる。
+```
+gobuster dir -u http://<IP> -w /usr/share/wordlists/dirb/common.txt 
+
+~~~~~~
+/images               (Status: 301) [Size: 313]
+/index.php            (Status: 200) [Size: 584] 
+~~~~~~
+```
+/imagesにアクセスしてみるといくつかファイルを発見。
+- a.jpg
+- exam1.jpeg
+- happynoot.jpeg
+- qrcode.png
+
+`exam1.jpeg`が怪しいので調べる。
+
+```
+exiftool exam1.jpeg
+
+~~~~~
+Exif Byte Order                 : Big-endian (Motorola, MM)
+Document Name                   : password=admin
+X Resolution                    : 1
+~~~~~
+```
+むむ、なんかパスワードをゲット。`steghide`を試してみることにする。
+
+```
+steghide extract -sf exam1.jpeg
+
+Enter passphrase: admin
+wrote extracted data to "a.txt".
+```
+隠しファイルが取り出せた！
+```
+cat a.txt
+
+the key is: superkeykey
+```  
+`superkeykey`
+
+- 2.What is key 2?
+2ページ目。音声ファイル`exam2.wav`が与えられた。
+`Sonic Visualiser`でスペクトログラムを表示すると、URLが現れる。
+<img width="952" alt="exam2" src="https://user-images.githubusercontent.com/67187325/160855942-fbe4f5e7-c89f-48ba-926d-6463feb0d055.png">  
+
+`https://imgur.com/KTrtNI5`
+
+画像をダウンロードして（exam2.png）、`zsteg`を実行する。
+```
+zsteg exam2.png 
+
+imagedata           .. text: ")))xxxLMO"
+b1,bgr,lsb,xy       .. text: "\rKey: fatality"
+b2,rgb,lsb,xy       .. file: SoftQuad DESC or font file binary
+b2,rgb,msb,xy       .. file: VISX image file
+b2,bgr,lsb,xy       .. file: SoftQuad DESC or font file binary
+b2,bgr,msb,xy       .. file: VISX image file
+```
+見つけた。`fatality`
+
+
+- 3.What is key 3?
+
+
 
