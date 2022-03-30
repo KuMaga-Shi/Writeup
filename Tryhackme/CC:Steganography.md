@@ -1,6 +1,6 @@
-#CC: Steganography
+# CC: Steganography
 
-### About the CTF
+## About the CTF
 Steganographyの基本を学習するためのルーム.
 Steganography
 
@@ -64,19 +64,19 @@ To embed emb.txt in cvr.jpg: steghide embed -cf cvr.jpg -ef emb.txt
 To extract embedded data from stg.jpg: steghide extract -sf stg.jpg
  ```
 
-#### 1.What argument allows you to embed data(such as files) into other files?
-Ans.: embed
-#### 2.What flag let's you set the file to embed?
-Ans.: -ef
-#### 3.What flag allows you to set the "cover file"?(i.e  the jpg)
-Ans.: -cf
-#### 4.How do you set the password to use for the cover file?
-Ans.: -p
-#### 5.What argument allows you to extract data from files?
-Ans.: extract
-#### 6.How do you select the file that you want to extract data from?
-Ans.: -sf
-#### 7.Given the passphrase "password123", what is the hidden message in the included "jpeg1" file.
+- 1.What argument allows you to embed data(such as files) into other files?
+`embed`
+- 2.What flag let's you set the file to embed?
+`-ef`
+- 3.What flag allows you to set the "cover file"?(i.e  the jpg)
+`-cf`
+- 4.How do you set the password to use for the cover file?
+`-p`
+- 5.What argument allows you to extract data from files?
+`extract`
+- 6.How do you select the file that you want to extract data from?
+`-sf`
+- 7.Given the passphrase "password123", what is the hidden message in the included "jpeg1" file.
 以下のコマンドを実行する。
 ```
 steghide extract -sf jpeg1.jpeg
@@ -86,7 +86,7 @@ passwordの入力を求められるので、`password123`を入力。
 ```
 cat a.txt
 ```
-Ans.:pinguftw
+`pinguftw`
 ---
 ### Task3 zsteg
 zstegのオプションを確認
@@ -125,19 +125,20 @@ PARAMS SHORTCUT
 	zsteg fname.png 2b,b,lsb,xy  ==>  --bits 2 --channel b --lsb --order xy
 ```
 
-#### 1.How do you specify that the least significant bit comes first
-Ans.: --lsb
+- 1.How do you specify that the least significant bit comes first
+`--lsb`
 
-#### 2.What about the most significant bit?
-Ans.: --msb
+- 2.What about the most significant bit?
+`--msb`
 
-#### 3.How do you specify verbose mode?
-Ans.:-v
+- 3.How do you specify verbose mode?
+`-v`
 
-#### 4.How do you extract the data from a specific payload?
-Ans.: -E
+- 4.How do you extract the data from a specific payload?
+`-E`
 
-#### 5.In the included file "png1" what is the hidden message?
+- 5.In the included file "png1" what is the hidden message?
+zstegのコマンドを実行し、hidden messageを確認する。
 ```
 # zsteg png1.png 
 
@@ -148,11 +149,11 @@ b2,b,msb,xy         .. text: "]UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 ~~~~~~~~~~~~~~
 ```
 output2行目にhidden messageが表示されている。
-Ans.: nootnoot$
+`nootnoot$`
 
-#### 6.What about the payload used to encrypt it.
+- 6.What about the payload used to encrypt it.
 問題5の各行1列目に暗号化のpayloadが表示されている。
-Ans.: b1,bgr,lsb,xy
+`b1,bgr,lsb,xy`
 
 ---
 ### Task4 Exiftool
