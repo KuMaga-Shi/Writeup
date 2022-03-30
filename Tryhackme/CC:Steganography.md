@@ -64,18 +64,12 @@ To embed emb.txt in cvr.jpg: steghide embed -cf cvr.jpg -ef emb.txt
 To extract embedded data from stg.jpg: steghide extract -sf stg.jpg
  ```
 
-- 1.What argument allows you to embed data(such as files) into other files?
-`embed`
-- 2.What flag let's you set the file to embed?
-`-ef`
-- 3.What flag allows you to set the "cover file"?(i.e  the jpg)
-`-cf`
-- 4.How do you set the password to use for the cover file?
-`-p`
-- 5.What argument allows you to extract data from files?
-`extract`
-- 6.How do you select the file that you want to extract data from?
-`-sf`
+- 1.What argument allows you to embed data(such as files) into other files?  `embed`
+- 2.What flag let's you set the file to embed?  `-ef`
+- 3.What flag allows you to set the "cover file"?(i.e  the jpg)  `-cf`
+- 4.How do you set the password to use for the cover file?  `-p`
+- 5.What argument allows you to extract data from files?  `extract`
+- 6.How do you select the file that you want to extract data from?  `-sf`
 - 7.Given the passphrase "password123", what is the hidden message in the included "jpeg1" file.
 以下のコマンドを実行する。
 ```
@@ -87,6 +81,7 @@ passwordの入力を求められるので、`password123`を入力。
 cat a.txt
 ```
 `pinguftw`
+
 ---
 ### Task3 zsteg
 zstegのオプションを確認
@@ -125,18 +120,10 @@ PARAMS SHORTCUT
 	zsteg fname.png 2b,b,lsb,xy  ==>  --bits 2 --channel b --lsb --order xy
 ```
 
-- 1.How do you specify that the least significant bit comes first
-`--lsb`
-
-- 2.What about the most significant bit?
-`--msb`
-
-- 3.How do you specify verbose mode?
-`-v`
-
-- 4.How do you extract the data from a specific payload?
-`-E`
-
+- 1.How do you specify that the least significant bit comes first  `--lsb`
+- 2.What about the most significant bit?  `--msb`
+- 3.How do you specify verbose mode?  `-v`
+- 4.How do you extract the data from a specific payload?  `-E`
 - 5.In the included file "png1" what is the hidden message?
 zstegのコマンドを実行し、hidden messageを確認する。
 ```
@@ -148,7 +135,7 @@ b2,r,lsb,xy         .. file: MacBinary, Mon Feb  6 06:28:16 2040 INVALID date, m
 b2,b,msb,xy         .. text: "]UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 ~~~~~~~~~~~~~~
 ```
-output2行目にhidden messageが表示されている。
+コマンド結果の2行目にhidden messageが表示されている。
 `nootnoot$`
 
 - 6.What about the payload used to encrypt it.
@@ -157,8 +144,113 @@ output2行目にhidden messageが表示されている。
 
 ---
 ### Task4 Exiftool
+- 1.In the included jpeg3 file, what is the document name
+exiftoolを使用してjpeg3ファイルのExif情報を確認する。
+```
+└─# exiftool jpeg3.jpeg 
+ExifTool Version Number         : 12.40
+File Name                       : jpeg3.jpeg
+Directory                       : .
+File Size                       : 8.3 KiB
+File Modification Date/Time     : 2020:01:06 21:09:44+00:00
+File Access Date/Time           : 2020:01:06 21:09:46+00:00
+File Inode Change Date/Time     : 2022:03:29 12:27:26+00:00
+File Permissions                : -rw-r--r--
+File Type                       : JPEG
+File Type Extension             : jpg
+MIME Type                       : image/jpeg
+JFIF Version                    : 1.01
+Exif Byte Order                 : Big-endian (Motorola, MM)
+Document Name                   : Hello :)
+X Resolution                    : 1
+Y Resolution                    : 1
+Resolution Unit                 : None
+Y Cb Cr Positioning             : Centered
+Image Width                     : 213
+Image Height                    : 160
+Encoding Process                : Baseline DCT, Huffman coding
+Bits Per Sample                 : 8
+Color Components                : 3
+Y Cb Cr Sub Sampling            : YCbCr4:2:0 (2 2)
+Image Size                      : 213x160
+Megapixels                      : 0.034
+```
+`Document Name`に答えが出ている。
+`Hello :)`
+
 ---
 ### Task5 Stegoveritas
+`stegoveritas`のhelpを参照する。
+```
+# stegoveritas -h
+usage: stegoveritas [-h] [-out dir] [-debug] [-password PASSWORD] [-wordlist WORDLIST] [-meta] [-imageTransform] [-bruteLSB] [-colorMap [N ...]] [-colorMapRange Start End] [-extractLSB]
+                    [-red index [index ...]] [-green index [index ...]] [-blue index [index ...]] [-alpha index [index ...]] [-extract_frames] [-trailing] [-steghide] [-exif] [-xmp] [-carve]
+                    file
+
+Yet another Stego tool
+
+positional arguments:
+  file                  The file to analyze
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -out dir              Directory to place output in. Defaults to ./results
+  -debug                Enable debugging logging.
+  -password PASSWORD    When applicable, attempt to use this password to extract data.
+  -wordlist WORDLIST    When applicable, attempt to brute force with this wordlist.
+
+image options:
+  -meta                 Check file for metadata information
+  -imageTransform       Perform various image transformations on the input image and save them to the output directory
+  -bruteLSB             Attempt to brute force any LSB related steganography.
+  -colorMap [N ...]     Analyze a color map. Optional arguments are colormap indexes to save while searching
+  -colorMapRange Start End
+                        Analyze a color map. Same as colorMap but implies a range of colorMap values to keep
+  -extractLSB           Extract a specific LSB RGB from the image. Use with -red, -green, -blue, and -alpha
+  -red index [index ...]
+  -green index [index ...]
+  -blue index [index ...]
+  -alpha index [index ...]
+  -extract_frames       Split up an animated gif into individual frames.
+  -trailing             Check for trailing data on the given file
+  -steghide             Check for StegHide hidden info.
+
+multi options:
+  -exif                 Check this file for exif information.
+  -xmp                  Check this file for XMP information.
+  -carve                Attempt to carve/extract things from this file.
+
+Have a good example? Wish it did something more? Submit a ticket: https://github.com/bannsec/stegoVeritas
+```
+- 1.How do you check the file for metadata?  `-meta`
+- 2.How do you check for steghide hidden information  `-steghide`
+- 3.What flag allows you to extract LSB data from the image?  `-extractLSB`
+- 4.In the included image jpeg2 what is the hidden message?
+
+`stegoveroveritas`のコマンドを実行する。
+```
+# stegoveritas -steghide jpeg2.jpeg 
+
+Running Module: SVImage
++------------------+------+
+|   Image Format   | Mode |
++------------------+------+
+| JPEG (ISO 10918) | RGB  |
++------------------+------+
+Found something with StegHide: /root/spect/results/steghide_45278306f5b457f1ab019d90d55e94c9.bin
+Running Module: MultiHandler
+```
+結果が`result`のディレクトリに出力されているので確認する。
+```
+cat ./results/steghide_45278306f5b457f1ab019d90d55e94c9.bin
+
+kekekekek
+```
+
+`kekekekek`
+
+
+
 ---
 ### Task6 Spectrograms
 ---
