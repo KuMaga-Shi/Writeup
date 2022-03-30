@@ -270,7 +270,7 @@ PORT   STATE SERVICE VERSION
 ```
 ブラウザでアクセス。
 
-- 1.What is key 1?
+- 1.What is key 1?  
 ファイルがどこかにあるらしい。gobusterでディレクトリを探してみる。
 ```
 gobuster dir -u http://<IP> -w /usr/share/wordlists/dirb/common.txt 
@@ -313,7 +313,7 @@ the key is: superkeykey
 ```  
 `superkeykey`
 
-- 2.What is key 2?
+- 2.What is key 2?  
 2ページ目。音声ファイル`exam2.wav`が与えられた。
 `Sonic Visualiser`でスペクトログラムを表示すると、URLが現れる。
 <img width="952" alt="exam2" src="https://user-images.githubusercontent.com/67187325/160855942-fbe4f5e7-c89f-48ba-926d-6463feb0d055.png">  
@@ -334,7 +334,7 @@ b2,bgr,msb,xy       .. file: VISX image file
 見つけた。`fatality`
 
 
-- 3.What is key 3?
+- 3.What is key 3?  
 
 
 
