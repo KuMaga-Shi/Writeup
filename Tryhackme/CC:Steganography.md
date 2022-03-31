@@ -335,6 +335,18 @@ b2,bgr,msb,xy       .. file: VISX image file
 
 
 - 3.What is key 3?  
+QRコードが与えられる。なんか赤い。
+画像のQRコードを読み込める[サイト](https://4qrcode.com/scan-qr-code.php)で試してみるが、読み込めない。
+ちゃんと読み込めるQRコードにするために、赤っぽいのを取り除く。
+やり方はいろいろあって、Macだとプレビューでコントラストや色合いをいじるってもOK!
+
+コマンドでやると
+```
+convert -threshold 50000 qrcode.png qrcode_out.png
+```
+返還されたQRコードを上のサイトで読み取るとURL(`http://key=killshot`)が表示される。
+
+`killshot`
 
 
-
+おしまいです！
