@@ -33,7 +33,7 @@ gobuster dir -u http://<IP> -w /usr/share/wordlists/dirb/common.txt -t 100
 /index.html           (Status: 200) [Size: 612]                                  
 /robots.txt           (Status: 200) [Size: 43]  
 ```
-`/hidden`のhttp response codeが301でリダイレクトされていることがわかる。
+`/hidden`のhttp response codeが301でリダイレクトされていることがわかる。  
 `/hidden`に対して再度`gobuster`を実行する。
 ```
 gobuster dir -u http://<IP> -w /usr/share/wordlists/dirb/common.txt -t 100
@@ -41,12 +41,12 @@ gobuster dir -u http://<IP> -w /usr/share/wordlists/dirb/common.txt -t 100
 /index.html           (Status: 200) [Size: 390]
 /whatever             (Status: 301) [Size: 169]
 ```
-`/whatever`を発見。
-続けて`/whatever`に対して`gobuster`をかけてみるも、何も見つからない。
-バックグラウンドのイメージにヒントがあるのかなと思って、htmlをダウンロードしてみる。
-なんか意味深なものを発見。
+`/whatever`を発見。  
+続けて`/whatever`に対して`gobuster`をかけてみるも、何も見つからない。  
+バックグラウンドのイメージにヒントがあるのかなと思って、htmlをダウンロードしてみる。  
+なんか意味深なものを発見。  
 `<p hidden="">ZmxhZ3tmMXJzN19mbDRnfQ==</p>`
-Base64でdecodeする。
+Base64でdecodeする。  
 ```
 echo "ZmxhZ3tmMXJzN19mbDRnfQ==" | base64 -d
 
