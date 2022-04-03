@@ -23,6 +23,7 @@ Task1の問題はこれで全部答えられそう！
 - 2.What is the version of nginx?  `1.16.1`
 - 3.What is running on the highest port?  `Apache`
 
+---
 ### Task 2  Compromising the machine
 - 1.Using GoBuster, find flag 1.
 gobusterを使用して隠されたディレクトリを探す。
@@ -45,7 +46,7 @@ gobuster dir -u http://<IP> -w /usr/share/wordlists/dirb/common.txt -t 100
 続けて`/whatever`に対して`gobuster`をかけてみるも、何も見つからない。  
 バックグラウンドのイメージにヒントがあるのかなと思って、htmlをダウンロードしてみる。  
 なんか意味深なものを発見。  
-`<p hidden="">ZmxhZ3tmMXJzN19mbDRnfQ==</p>`
+`<p hidden="">ZmxhZ3tmMXJzN19mbDRnfQ==</p>`  
 Base64でdecodeする。  
 ```
 echo "ZmxhZ3tmMXJzN19mbDRnfQ==" | base64 -d
