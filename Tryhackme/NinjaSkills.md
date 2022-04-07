@@ -80,7 +80,7 @@ wNXbEERat4wE0w/O9Mn1.1.1.1VeiSLv47L4B2Mxy3M0XbCYVf9TSJeg905weaIk
 
 - Which file has the SHA1 hash of 9d54da7584015647ba052173b84d45e8007eba94
 ```
-find / -name 8V2L-or -name bny0 -or -name c4ZX -or -name D8B3 -or -name FHl1 -or -name oiMO -or -name PFbD -or -name rmfX -or -name SRSq -or -name uqyw -or -name v2Vb -or -name X1Uy 2>/dev/null | xargs sha1sum
+cat /tmp/file_location.txt | xargs sha1sum
 
 2c8de970ff0701c8fd6c55db8a5315e5615a9575  /mnt/D8B3
 9d54da7584015647ba052173b84d45e8007eba94  /mnt/c4ZX
@@ -89,6 +89,7 @@ d5a35473a856ea30bfec5bf67b8b6e1fe96475b3  /var/FHl1
 256933c34f1b42522298282ce5df3642be9a2dc9  /opt/PFbD
 5b34294b3caa59c1006854fa0901352bf6476a8c  /opt/oiMO
 4ef4c2df08bc60139c29e222f537b6bea7e4d6fa  /media/rmfX
+0323e62f06b29ddbbe18f30a89cc123ae479a346  /etc/8V2L
 acbbbce6c56feb7e351f866b806427403b7b103d  /etc/ssh/SRSq
 7324353e3cd047b8150e0c95edf12e28be7c55d3  /home/v2Vb
 59840c46fb64a4faeabb37da0744a46967d87e57  /X1Uy
@@ -116,7 +117,7 @@ cat /tmp/file_location.txt | xargs wc
 全部209行。1つだけないファイルが230行ってことか。  
 `bny0`
 
-- Which file's owner has an ID of 502?
+- Which file's owner has an ID of 502?  
 見えてるファイルで、ownerの選択肢は2つ。`new-user`か`newer-user`。  
 （まぁ多分`X1Uy`が答えだろう）
 
