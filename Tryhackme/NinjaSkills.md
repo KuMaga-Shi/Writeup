@@ -7,8 +7,8 @@ Steganography
 ## Writeup
 ---
 ### Task1 Ninja Skills  
-マシンのいろんな場所に計12個のファイルが散りばめられている。
-とりあえず各ファイルの名前がわかっているので、どこにあるか探してみる。
+マシンのいろんな場所に計12個のファイルが散りばめられている。  
+とりあえず各ファイルの名前がわかっているので、どこにあるか探してみる。  
 適当なディレクトリにファイルのリストを書いたファイルを作る。
 ```
 echo -e "8V2L\nbny0\nc4ZX\nD8B3\nFHl1\noiMO\nPFbD\nrmfX\nSRSq\nuqyw\nv2Vb\nX1Uy" > /tmp/list.txt
@@ -62,8 +62,21 @@ for x in `cat /tmp/file_location.txt`; do ls -la ${x} ;done
 - Which of these files contain an IP address?
 ```
 while read file; do echo ${file} &&  cat ${file} | grep -E '[0-9]{,3}\.[0-9]{,3}\.[0-9]{,3}\.[0-9]{,3}' ;done < /tmp/file_location.txt
-```
 
+/mnt/D8B3
+/mnt/c4ZX
+/var/FHl1
+/var/log/uqyw
+/opt/PFbD
+/opt/oiMO
+wNXbEERat4wE0w/O9Mn1.1.1.1VeiSLv47L4B2Mxy3M0XbCYVf9TSJeg905weaIk
+/media/rmfX
+/etc/8V2L
+/etc/ssh/SRSq
+/home/v2Vb
+/X1Uy
+```
+`oiMO`
 
 - Which file has the SHA1 hash of 9d54da7584015647ba052173b84d45e8007eba94
 ```
@@ -100,11 +113,11 @@ cat /tmp/file_location.txt | xargs wc
    209    209  13545 /home/v2Vb
    209    209  13545 /X1Uy
 ```
-全部209行。1つだけないファイルが230行ってことか。
+全部209行。1つだけないファイルが230行ってことか。  
 `bny0`
 
 - Which file's owner has an ID of 502?
-見えてるファイルで、ownerの選択肢は2つ。`new-user`か`newer-user`。
+見えてるファイルで、ownerの選択肢は2つ。`new-user`か`newer-user`。  
 （まぁ多分`X1Uy`が答えだろう）
 
 ```
@@ -121,6 +134,6 @@ uid=502(newer-user) gid=503(newer-user) groups=503(newer-user)
 
 `X1Uy`
 
-- Which file is executable by everyone?
-これも1問目で答えが出ている。
+- Which file is executable by everyone?  
+これも1問目で答えが出ている。  
 `8V2L`
